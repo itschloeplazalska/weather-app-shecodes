@@ -34,6 +34,9 @@ img {
 }
 footer {
   font-family: monospace;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
 }
 .container {
   max-width: 60%;
@@ -78,6 +81,7 @@ footer {
   margin-right: 30px;
   object-fit: contain;
 }
+
 @media only screen and (max-width: 550px) {
   .container {
     max-width: 62%;
