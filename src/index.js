@@ -63,40 +63,33 @@ searchButton.addEventListener("click", searchCity);
 // Show Temperature in Current Location
 function showTemperature(response) {
   console.log(response.data);
-  let currentCity = document.querySelector("#city-name");
-  let temperature = Math.round(response.data.main.temp);
+  let currentCityElement = document.querySelector("#city-name");
   let temperatureElement = document.querySelector("#current-temp");
   let currentWeatherIcon = response.data.weather[0].icon;
   let currentWeatherIconElement = document.querySelector(
     "#current-weather-icon"
   );
-  let weatherDescription = response.data.weather[0].description;
   let weatherDescriptionElement = document.querySelector(
     "#weather-description"
   );
-
-  let highTemp = Math.round(response.data.main.temp_max);
   let highTempElement = document.querySelector("#high-temp");
-  let lowTemp = Math.round(response.data.main.temp_min);
   let lowTempElement = document.querySelector("#low-temp");
-  let cityHumidity = response.data.main.humidity;
   let cityhumidityElement = document.querySelector("#humidity");
-  let cityWindspeed = Math.ceil(
-    Math.cbrt(Math.pow(response.data.wind.speed, 2))
-  );
   let windspeedElement = document.querySelector("#city-windspeed");
 
-  currentCity.innerHTML = response.data.name;
-  temperatureElement.innerHTML = `${temperature}°`;
+  currentCityElement.innerHTML = response.data.name;
+  temperatureElement.innerHTML = Math.round(response.data.main.temp);
   currentWeatherIconElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png`
   );
-  weatherDescriptionElement.innerHTML = `${weatherDescription}`;
-  highTempElement.innerHTML = `${highTemp}`;
-  lowTempElement.innerHTML = `${lowTemp}`;
-  cityhumidityElement.innerHTML = `${cityHumidity}`;
-  windspeedElement.innerHTML = `${cityWindspeed}`;
+  weatherDescriptionElement.innerHTML = response.data.weather[0].description;
+  highTempElement.innerHTML = Math.round(response.data.main.temp_max);
+  lowTempElement.innerHTML = Math.round(response.data.main.temp_min);
+  cityhumidityElement.innerHTML = response.data.main.humidity;
+  windspeedElement.innerHTML = Math.ceil(
+    Math.cbrt(Math.pow(response.data.wind.speed, 2))
+  );
 }
 
 // Current location and temperature
