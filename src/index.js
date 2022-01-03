@@ -62,26 +62,40 @@ searchButton.addEventListener("click", searchCity);
 
 // Show Temperature in Current Location
 function showTemperature(response) {
-  console.log(response);
+  console.log(response.data);
   let currentCity = document.querySelector("#city-name");
-  currentCity.innerHTML = response.data.name;
   let temperature = Math.round(response.data.main.temp);
-  console.log(temperature);
   let temperatureElement = document.querySelector("#current-temp");
-  temperatureElement.innerHTML = `${temperature}°`;
+  let currentWeatherIcon = response.data.weather[0].icon;
+  let currentWeatherIconElement = document.querySelector(
+    "#current-weather-icon"
+  );
+  let weatherDescription = response.data.weather[0].description;
+  let weatherDescriptionElement = document.querySelector(
+    "#weather-description"
+  );
+
   let highTemp = Math.round(response.data.main.temp_max);
   let highTempElement = document.querySelector("#high-temp");
-  highTempElement.innerHTML = `${highTemp}`;
   let lowTemp = Math.round(response.data.main.temp_min);
   let lowTempElement = document.querySelector("#low-temp");
-  lowTempElement.innerHTML = `${lowTemp}`;
   let cityHumidity = response.data.main.humidity;
   let cityhumidityElement = document.querySelector("#humidity");
-  cityhumidityElement.innerHTML = `${cityHumidity}`;
   let cityWindspeed = Math.ceil(
     Math.cbrt(Math.pow(response.data.wind.speed, 2))
   );
   let windspeedElement = document.querySelector("#city-windspeed");
+
+  currentCity.innerHTML = response.data.name;
+  temperatureElement.innerHTML = `${temperature}°`;
+  currentWeatherIconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png`
+  );
+  weatherDescriptionElement.innerHTML = `${weatherDescription}`;
+  highTempElement.innerHTML = `${highTemp}`;
+  lowTempElement.innerHTML = `${lowTemp}`;
+  cityhumidityElement.innerHTML = `${cityHumidity}`;
   windspeedElement.innerHTML = `${cityWindspeed}`;
 }
 
@@ -89,9 +103,7 @@ function showTemperature(response) {
 
 function showLocation(position) {
   let latitude = position.coords.latitude;
-  console.log(position.coords.latitude);
   let longitude = position.coords.longitude;
-  console.log(position.coords.longitude);
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?&lat=${latitude}&lon=${longitude}`;
   axios.get(`${apiUrl}${tempUnits}&appid=${apiKey}`).then(showTemperature);
 }
