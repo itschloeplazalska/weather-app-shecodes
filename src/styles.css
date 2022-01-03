@@ -50,18 +50,19 @@ footer {
 .currentCityTable {
   width: 400px;
   text-align: center;
+  vertical-align: middle;
   background-color: white;
   top: 60px;
   margin-bottom: 20px;
-    vertical-align: middle;
 }
 
 .dailyForecast {
-  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 .currentTemperature {
   font-size: 60px;
-  
+  display: block;
+  margin: auto;
 }
 .celsiusUnit {
   margin: 3px;
