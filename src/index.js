@@ -1,22 +1,29 @@
-let now = new Date();
-let day = now.getDay();
-let hour = now.getHours();
-let minutes = (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let day = date.getDay();
 
-let days = [
-  `Sunday`,
-  `Monday`,
-  `Tuesday`,
-  `Wednesday`,
-  `Thursday`,
-  `Friday`,
-  `Saturday`,
-];
+  let days = [
+    `Sunday`,
+    `Monday`,
+    `Tuesday`,
+    `Wednesday`,
+    `Thursday`,
+    `Friday`,
+    `Saturday`,
+  ];
 
-let today = days[now.getDay()];
+  let today = days[date.getDay()];
 
-let dayTime = document.querySelector("h2");
-dayTime.innerHTML = `${today} ${hour}:${minutes}`;
+  return `${today} ${hours}:${minutes}`;
+}
 
 // Search City
 
@@ -64,6 +71,7 @@ searchButton.addEventListener("click", searchCity);
 function showTemperature(response) {
   console.log(response.data);
   let currentCityElement = document.querySelector("#city-name");
+  let dateElement = document.querySelector("h2");
   let temperatureElement = document.querySelector("#current-temp");
   let currentWeatherIcon = response.data.weather[0].icon;
   let currentWeatherIconElement = document.querySelector(
@@ -78,6 +86,7 @@ function showTemperature(response) {
   let windspeedElement = document.querySelector("#city-windspeed");
 
   currentCityElement.innerHTML = response.data.name;
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   currentWeatherIconElement.setAttribute(
     "src",
