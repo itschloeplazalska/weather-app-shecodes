@@ -121,29 +121,27 @@ currentLocationButton.addEventListener("click", onClick);
 
 function showFahrenheitTemperature(event) {
   event.preventDefault();
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let fahrenheitTemperature = convertTemperature(fahrenheitUnits.innerHTML);
   temperature.innerHTML = Math.round(fahrenheitTemperature);
-  celsiusUnits.innerHTML = "F";
-  fahrenheitUnits.innerHTML = "C";
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
+  celsiusUnits.innerHTML = toggleUnit(celsiusUnits.innerHTML);
+  fahrenheitUnits.innerHTML = toggleUnit(fahrenheitUnits.innerHTML);
 }
 
-function showCelsiusTemperature(event) {
-  event.preventDefault();
-  temperature.innerHTML = Math.round(celsiusTemperature);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  fahrenheitUnits.innerHTML = "C";
-  celsiusUnits.innerHTML = "F";
+function convertTemperature(newUnit) {
+  if (newUnit === "F") {
+    return (celsiusTemperature * 9) / 5 + 32;
+  } else {
+    return celsiusTemperature;
+  }
+}
+
+function toggleUnit(unit) {
+  return unit === "C" ? "F" : "C";
 }
 
 let celsiusTemperature = null;
 let temperature = document.querySelector("#current-temp");
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-let celsiusUnits = document.querySelector("#celsius-link");
-let fahrenheitUnits = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", showCelsiusTemperature);
+let smallUnits = document.querySelector("#fahrenheit-unit");
+let celsiusUnits = document.querySelector("#celsius-unit");
+let fahrenheitUnits = document.querySelector("#fahrenheit-unit");
+smallUnits.addEventListener("click", showFahrenheitTemperature);

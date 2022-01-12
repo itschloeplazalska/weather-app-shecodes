@@ -35,12 +35,14 @@ footer {
   margin: 0 auto;
 }
 
-.currentTemperature .active {
+.fahrenheitUnit {
   color: black;
-  text-decoration: none;
-  cursor: default;
 }
 
+.fahrenheitUnit:hover {
+  color: grey;
+  cursor: pointer;
+}
 
 .container {
   max-width: 500px;
